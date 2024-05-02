@@ -130,6 +130,9 @@ const Todolist = () => {
     return (
         <section className="todo-sec">
             <div className='todo-container'>
+                <div className="todo-title">
+                    <h1>Todo List</h1>
+                </div>
                 <div className='todo-row'>
                     <div className='todo-col'>
                         <input type='text' placeholder='Enter your lists' id="inputvalue" value={todovalue} name="todo" onChange={handle}></input>

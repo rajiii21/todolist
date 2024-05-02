@@ -12,7 +12,7 @@ body {
 .todo-row {
     background-color: #161414;
     width: fit-content;
-    margin: 64px auto;
+    margin: 38px auto 64px;
     max-height: 80vh;
     overflow-y: auto;
     padding: 2%;
@@ -110,7 +110,7 @@ body {
 }
 
 .todos button {
-    color: black;
+    color:white;
     padding: 12px 28px;
     border: none;
     cursor: pointer;
@@ -124,4 +124,13 @@ body {
 #todos{
     background-color: gray;
 }
-
+.todo-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.todo-title h1{
+    font-size: 39px;
+    color: white;
+    margin: 20px 0 0 0;
+}
