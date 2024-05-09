@@ -1,35 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import './Todolist.css'
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiSolidEdit } from "react-icons/bi";
 import { TiTick } from "react-icons/ti";
+import { useDispatch, useSelector } from "react-redux";
+import { handleArr } from "../Slice";
+
 
 const Todolist = () => {
-    
-    
-    const Fun = () => {
-        return JSON.parse(localStorage.getItem("array") || "[]")
-    }
-
-    const CompletedTodos = () => {
-        return JSON.parse(localStorage.getItem("completedtodo") || "[]")
-    }
 
 
+    const dispatch = useDispatch()
+    const state = useSelector(samp => samp)
 
+    const [array, setArray] = useState(state.data.arr)
+    const [completeArr, setCompletearr] = useState([])
+    const [startArr, setStartarr] = useState([])
+    const [progressArr, setProgressarr] = useState([])
+    const [pendingArr, setPendingarr] = useState([])
     const [todovalue, Settodovalue] = useState("")
     const [tododescription, setTododescription] = useState("")
-    const [arrvalues, Setarrvalues] = useState(Fun())
-    const [arrvalues1, Setarrvalues1] = useState(CompletedTodos())
+    const [startDate, setStartdate] = useState("")
+    const [endDate, setEnddate] = useState("")
     const [edit, setEdit] = useState(false)
     const [empty, setEmpty] = useState(false)
     const [emptyvalue, setEmptyvalue] = useState("")
-    const [completedTodos, setCompletetodos] = useState(false)
-    console.log(arrvalues);
-
+    const [allTodosactive, setAlltodosactive] = useState(false)
+    const [startTodosactive, setStarttodosactive] = useState(false)
+    const [progressTodosactive, setProgresstodosactive] = useState(false)
+    const [pendingTodosactive, setPendingtodosactive] = useState(false)
+    const [completeTodosactive, setCompletetodosactive] = useState(false)
+    const [id,setId]=useState("")
 
     // assign input value in state
-    
+
     const handle = (e) => {
         if (e.target.name === "todo") {
             Settodovalue(e.target.value)
@@ -37,95 +41,205 @@ const Todolist = () => {
         else if (e.target.name === "description") {
             setTododescription(e.target.value)
         }
+        else if (e.target.name === "start") {
+            setStartdate(e.target.value)
+        }
+        else if (e.target.name === "end") {
+            setEnddate(e.target.value)
+        }
     }
 
-    
+    console.log(startDate, endDate);
+
     // set values in localstorage
 
     const handleEvent = () => {
-        let obj = { todovalue, tododescription, colorChange: false }
-        console.log(obj);
 
-        obj.todovalue === "" ? Setarrvalues(arrvalues) || setEmpty(true) : Setarrvalues([...arrvalues, obj]) || setEmpty(false)
-        Settodovalue("")
-        setTododescription("")
-        console.log(emptyvalue);
+        if(edit===true){
+            let obj = { todovalue, tododescription, startDate, endDate }
+            console.log(obj);
+            let a=array.map((e,i)=>{
+                return i===id ? obj:e
+            })
+            setArray(a)
+        }
+        else{
+            let obj = { todovalue, tododescription, startDate, endDate }
+            console.log(obj);
+    
+            obj.todovalue === "" ? setArray(array) || setEmpty(true) : setArray([...array, obj]) || setEmpty(false)
+        }
+       
+        Settodovalue("");
+        setTododescription("");
+        setStartdate("")
+        setEnddate("")
+        console.log(emptyvalue, "submit");
+        console.log(state.data.arr);
     }
-
-    useEffect(() => {
-        localStorage.setItem("array", JSON.stringify(arrvalues))
-        localStorage.setItem("completedtodo", JSON.stringify(arrvalues1))
-
-    }, [arrvalues])
-
 
     // handle delete function here
 
     const handleDelete = (todovalue) => {
         console.log("delete", todovalue);
-        let a = arrvalues.filter((e) => {
+        let a = array.filter((e) => {
             console.log(e.todovalue, todovalue);
             return e.todovalue !== todovalue
         })
-        Setarrvalues(a)
-
-        let b = arrvalues1.filter((e) => {
-            console.log(e.todovalue, todovalue);
-            return e.todovalue !== todovalue
-        })
-        Setarrvalues1(b)
+        setArray(a)
     }
 
 
 
     // handle edit function here
 
-    const handleEdit = (todovalue) => {
+    const handleEdit = (index) => {
         console.log("edit");
-
-        let a = arrvalues.find((e) => {
-            return e.todovalue === todovalue
+        let a = array.find((e,i) => {
+            console.log(i,index);
+            return i === index
         })
-        console.log(a);
-
-        let b = arrvalues.filter((e) => {
-            return e.todovalue !== todovalue
-        })
-
+        setId(index)
         Settodovalue(a.todovalue)
         setTododescription(a.tododescription)
+        setStartdate(a.startDate)
+        setEnddate(a.endDate)
         setEdit(true)
-        Setarrvalues(b)
+        let date=new Date()
+        let day=date.getDate()
+        let year=date.getFullYear()
+        let month=date.getMonth()+1;
+        
     }
 
     // add completed todos in completed section
 
     const handleTick = (todovalue, tododescription) => {
-        let a = arrvalues.filter((e, i) => {
+        let a = array.filter((e, i) => {
             console.log(e.todovalue, todovalue);
             return e.todovalue !== todovalue
         })
-        Setarrvalues(a)
+        setArray(a)
+        var date = new Date();
+        let time = date.toLocaleTimeString();
+        let day = date.getDate()
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
+        let dates = "0" + day + "/" + "0" + month + "/" + year;
+        
+        console.log(time);
 
-        let obj = { todovalue, tododescription, colorChange: false }
+        let obj = { todovalue, tododescription, colorChange: false, timing: time, date: dates }
         console.log(obj.tododescription);
-        Setarrvalues1([...arrvalues1, obj])
-        console.log(arrvalues1);
-      
+        setCompletearr([...completeArr, obj])
     }
 
-    // todos and completed todos
+    // todos active buttons
 
     let color = {
         backgroundColor: "green"
     }
+    let color1 = {
+        backgroundColor: "grey"
+    }
 
     const todoslist = () => {
-        setCompletetodos(false)
+        setAlltodosactive(true)
+        setStarttodosactive(false)
+        setProgresstodosactive(false)
+        setPendingtodosactive(false)
+        setCompletetodosactive(false)
     }
     const completetodos = () => {
-        setCompletetodos(true)
+        setAlltodosactive(false)
+        setStarttodosactive(false)
+        setProgresstodosactive(false)
+        setPendingtodosactive(false)
+        setCompletetodosactive(true)
     }
+
+    const date = new Date()
+
+    // starting todos functionality here
+
+    const startingtodos = () => {
+        const date = new Date()
+        let day = date.getDate()
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
+        let dates = "0" + day + "/" + "0" + month + "/" + year;
+        let c = dates.split("/").reverse().join("-");
+        console.log(c);
+        console.log(day + "/" + month + "/" + year);
+        
+        console.log(startDate);
+        let a = array.filter((e) => {
+            console.log(e.startDate);
+            return e.startDate === c
+        })
+        setStartarr(a)
+        console.log(startArr);
+
+        setAlltodosactive(false)
+        setStarttodosactive(true)
+        setProgresstodosactive(false)
+        setPendingtodosactive(false)
+        setCompletetodosactive(false)
+    }
+
+
+    // progress todos functionality here
+
+    const progressTodos = () => {
+        const date = new Date()
+        const day = date.getDate()
+        const month = date.getMonth() + 1
+        const year = date.getFullYear()
+        let dates = "0" + day + "/" + "0" + month + "/" + year;
+        let currentDate = dates.split("/").reverse().join("-")
+        console.log(startDate, endDate);
+        let a = array.filter((e) => {
+            console.log(e.startDate, e.endDate);
+            return currentDate > e.startDate && currentDate < e.endDate
+        })
+
+        setProgressarr(a)
+        console.log(progressArr);
+        setAlltodosactive(false)
+        setStarttodosactive(false)
+        setProgresstodosactive(true)
+        setPendingtodosactive(false)
+        setCompletetodosactive(false)
+    }
+
+    // pending todos functionality here
+
+    const pendingtodos = () => {
+        setAlltodosactive(false)
+        setStarttodosactive(false)
+        setProgresstodosactive(false)
+        setPendingtodosactive(true)
+        setCompletetodosactive(false)
+
+
+        const date = new Date()
+        const day = date.getDate()
+        const month = date.getMonth() + 1
+        const year = date.getFullYear()
+        let dates = "0" + day + "/" + "0" + month + "/" + year;
+        let currentDate = dates.split("/").reverse().join("-")
+
+        console.log(startDate, endDate);
+        let a = array.filter((e) => {
+            return currentDate > e.endDate
+        })
+        console.log(a);
+        setPendingarr(a)
+
+    }
+
+
+
 
     return (
         <section className="todo-sec">
@@ -137,51 +251,133 @@ const Todolist = () => {
                     <div className='todo-col'>
                         <input type='text' placeholder='Enter your lists' id="inputvalue" value={todovalue} name="todo" onChange={handle}></input>
                         <input type='text' placeholder='Enter your description' id="inputvalue" value={tododescription} name="description" onChange={handle}></input>
+                        <input type='date' placeholder='Enter your lists' id="inputvalue" value={startDate} name="start" onChange={handle}></input>
+                        <input type='date' placeholder='Enter your lists' id="inputvalue" value={endDate} name="end" onChange={handle}></input>
                         <button onClick={handleEvent}>Add</button>
                     </div>
                     {
                         empty === true ? <p className="error-msg">Please Enter your totdos</p> : ""
                     }
                     <div className="todos">
-                        <button onClick={todoslist} style={completedTodos === false ? color : null}>todos</button>
-                        <button onClick={completetodos} style={completedTodos === true ? color : null}>completed</button>
+                        <button onClick={todoslist} style={allTodosactive === true ? color : null}>All</button>
+                        <button onClick={startingtodos} style={startTodosactive === true ? color : null}>Start</button>
+                        <button onClick={progressTodos} style={progressTodosactive === true ? color : null}>Progress</button>
+                        <button onClick={pendingtodos} style={pendingTodosactive === true ? color : null}>Pending</button>
+                        <button onClick={completetodos} style={completeTodosactive === true ? color : null}>Completed</button>
                     </div>
                     {
-                        completedTodos === false ? <div className="todo-col1">
+                        allTodosactive === true ? <div className="todo-col1">
                             {
-                                arrvalues.map((e, i) => {
+                                array.map((e, i) => {
+                                    console.log(e);
+                                    return <div className="todo-box" key={i}>
+                                        <div className="todo-values">
+                                            <div className="todo-content">
+                                                <h1>{e.todovalue}</h1>
+                                                <p>{e.tododescription}</p>
+                                            </div>
+                                            <div className="icons">
+                                                <RiDeleteBin6Line onClick={() => handleDelete(e.todovalue)} className="del-icon" />
+                                                <BiSolidEdit onClick={() => handleEdit(i)} className="edit-icon" />
+                                                <TiTick onClick={() => handleTick(e.todovalue, e.tododescription)} style={{ color: "green" }} />
+                                            </div>
+                                        </div>
+                                        <div className="completed-time">
+                                            <h1 className="completed-head">Start date:</h1>
+                                            <p>{e.startDate}</p>
+                                            <h1 className="completed-head">End date:</h1>
+                                            <p>{e.endDate}</p>
+                                        </div>
+                                    </div>
+                                })
+                            }
+                        </div> : ""
+
+                    }
+                    {
+                        startTodosactive === true ? <div className="todo-col1">
+                            {
+                                startArr.map((e, i) => {
                                     console.log(e);
                                     return <div className="todo-value" key={i}>
                                         <div className="todo-content">
                                             <h1>{e.todovalue}</h1>
                                             <p>{e.tododescription}</p>
+                                            <p id="demo"></p>
                                         </div>
                                         <div className="icons">
                                             <RiDeleteBin6Line onClick={() => handleDelete(e.todovalue)} className="del-icon" />
-                                            <BiSolidEdit onClick={() => handleEdit(e.todovalue)} className="edit-icon" />
-                                            <TiTick onClick={() => handleTick(e.todovalue, e.tododescription)} style={{ color: "green" }} />
                                         </div>
                                     </div>
                                 })
                             }
-                        </div> :
-                            <div className="todo-col1">
-                                {
-                                    arrvalues1.map((e, i) => {
-                                        console.log(e);
-                                        return <div className="todo-value" key={i}>
+                        </div> : ""
+                    }
+                    {
+                        progressTodosactive === true ? <div className="todo-col1">
+                            {
+                                progressArr.map((e, i) => {
+                                    console.log(e);
+                                    return <div className="todo-value" key={i}>
+                                        <div className="todo-content">
+                                            <h1>{e.todovalue}</h1>
+                                            <p>{e.tododescription}</p>
+                                            <p id="demo"></p>
+                                        </div>
+                                        <div className="icons">
+                                            <RiDeleteBin6Line onClick={() => handleDelete(e.todovalue)} className="del-icon" />
+                                        </div>
+                                    </div>
+                                })
+                            }
+                        </div> : ""
+                    }
+
+                    {
+                        pendingTodosactive == true ? <div className="todo-col1">
+                            {
+                                pendingArr.map((e, i) => {
+                                    console.log(e);
+                                    return <div className="todo-value" key={i}>
+                                        <div className="todo-content">
+                                            <h1>{e.todovalue}</h1>
+                                            <p>{e.tododescription}</p>
+                                            <p id="demo"></p>
+                                        </div>
+                                        <div className="icons">
+                                            <RiDeleteBin6Line onClick={() => handleDelete(e.todovalue)} className="del-icon" />
+                                        </div>
+                                    </div>
+                                })
+                            }
+                        </div> : ""
+                    }
+                    {
+                        completeTodosactive === true ? <div className="todo-col1">
+                            {
+                                completeArr.map((e, i) => {
+                                    console.log(e);
+                                    return <div className="todo-box" key={i}>
+                                        <div className="todo-values">
                                             <div className="todo-content">
                                                 <h1>{e.todovalue}</h1>
                                                 <p>{e.tododescription}</p>
-                                                <p id="demo"></p>
                                             </div>
                                             <div className="icons">
                                                 <RiDeleteBin6Line onClick={() => handleDelete(e.todovalue)} className="del-icon" />
                                             </div>
                                         </div>
-                                    })
-                                }
-                            </div>
+                                        <div className="completed-time">
+                                            <h1 className="completed-head">Completed:</h1>
+                                            <p>{e.timing}</p>
+                                            <p>{e.date}</p>
+                                        </div>
+                                    </div>
+
+                                })
+                            }
+                        </div> : ""
+
                     }
                 </div>
             </div>

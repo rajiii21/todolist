@@ -49,15 +49,27 @@ body {
     margin: 39px 0;
 }
 
+.todo-values {
+    padding: 12px 12px 2px;
+    margin: 12px;
+    display: flex;
+    align-items: center;
+    color: green;
+}
+
 .todo-value {
     padding: 26px;
     margin: 12px;
     display: flex;
     align-items: center;
-    background-color: #0f0d0d;
     color: green;
 }
-
+.todo-value{
+    background-color: #0f0d0d;
+}
+.todo-box{
+    background-color: #0f0d0d;
+}
 .todo-content {
     width: 80%;
 }
@@ -124,13 +136,29 @@ body {
 #todos{
     background-color: gray;
 }
+
 .todo-title{
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .todo-title h1{
     font-size: 39px;
     color: white;
     margin: 20px 0 0 0;
+}
+.completed-time{
+    padding: 0px 23px 19px;
+    display: flex;
+    align-items: center;
+}
+.completed-time p{
+    color: grey;
+    padding: 0 12px;
+    font-size: 12px;
+}
+.completed-head{
+    color: #6f7479f7;
+    font-size: 13px;
 }
