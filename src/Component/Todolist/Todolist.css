@@ -162,3 +162,11 @@ body {
     color: #6f7479f7;
     font-size: 13px;
 }
+.pending{
+    font-size: 13px;
+    color: red;
+}
+.progress{
+    font-size: 13px;
+    color: #3f3939;
+}

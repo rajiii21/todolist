@@ -30,7 +30,7 @@ const Todolist = () => {
     const [progressTodosactive, setProgresstodosactive] = useState(false)
     const [pendingTodosactive, setPendingtodosactive] = useState(false)
     const [completeTodosactive, setCompletetodosactive] = useState(false)
-    const [id,setId]=useState("")
+    const [id, setId] = useState("")
 
     // assign input value in state
 
@@ -55,21 +55,21 @@ const Todolist = () => {
 
     const handleEvent = () => {
 
-        if(edit===true){
+        if (edit === true) {
             let obj = { todovalue, tododescription, startDate, endDate }
             console.log(obj);
-            let a=array.map((e,i)=>{
-                return i===id ? obj:e
+            let a = array.map((e, i) => {
+                return i === id ? obj : e
             })
             setArray(a)
         }
-        else{
+        else {
             let obj = { todovalue, tododescription, startDate, endDate }
             console.log(obj);
-    
+
             obj.todovalue === "" ? setArray(array) || setEmpty(true) : setArray([...array, obj]) || setEmpty(false)
         }
-       
+
         Settodovalue("");
         setTododescription("");
         setStartdate("")
@@ -95,8 +95,8 @@ const Todolist = () => {
 
     const handleEdit = (index) => {
         console.log("edit");
-        let a = array.find((e,i) => {
-            console.log(i,index);
+        let a = array.find((e, i) => {
+            console.log(i, index);
             return i === index
         })
         setId(index)
@@ -105,11 +105,6 @@ const Todolist = () => {
         setStartdate(a.startDate)
         setEnddate(a.endDate)
         setEdit(true)
-        let date=new Date()
-        let day=date.getDate()
-        let year=date.getFullYear()
-        let month=date.getMonth()+1;
-        
     }
 
     // add completed todos in completed section
@@ -126,7 +121,7 @@ const Todolist = () => {
         let month = date.getMonth() + 1
         let year = date.getFullYear()
         let dates = "0" + day + "/" + "0" + month + "/" + year;
-        
+
         console.log(time);
 
         let obj = { todovalue, tododescription, colorChange: false, timing: time, date: dates }
@@ -171,7 +166,7 @@ const Todolist = () => {
         let c = dates.split("/").reverse().join("-");
         console.log(c);
         console.log(day + "/" + month + "/" + year);
-        
+
         console.log(startDate);
         let a = array.filter((e) => {
             console.log(e.startDate);
@@ -299,14 +294,19 @@ const Todolist = () => {
                             {
                                 startArr.map((e, i) => {
                                     console.log(e);
-                                    return <div className="todo-value" key={i}>
-                                        <div className="todo-content">
-                                            <h1>{e.todovalue}</h1>
-                                            <p>{e.tododescription}</p>
-                                            <p id="demo"></p>
+                                    return <div className="todo-box">
+                                        <div className="todo-values" key={i}>
+                                            <div className="todo-content">
+                                                <h1>{e.todovalue}</h1>
+                                                <p>{e.tododescription}</p>
+                                                <p id="demo"></p>
+                                            </div>
+                                            <div className="icons">
+                                                <RiDeleteBin6Line onClick={() => handleDelete(e.todovalue)} className="del-icon" />
+                                            </div>
                                         </div>
-                                        <div className="icons">
-                                            <RiDeleteBin6Line onClick={() => handleDelete(e.todovalue)} className="del-icon" />
+                                        <div className="completed-time">
+                                            <h1 className="progress">started</h1>
                                         </div>
                                     </div>
                                 })
@@ -318,14 +318,19 @@ const Todolist = () => {
                             {
                                 progressArr.map((e, i) => {
                                     console.log(e);
-                                    return <div className="todo-value" key={i}>
-                                        <div className="todo-content">
-                                            <h1>{e.todovalue}</h1>
-                                            <p>{e.tododescription}</p>
-                                            <p id="demo"></p>
+                                    return <div className="todo-box" key={i}>
+                                        <div className="todo-values" >
+                                            <div className="todo-content">
+                                                <h1>{e.todovalue}</h1>
+                                                <p>{e.tododescription}</p>
+                                                <p id="demo"></p>
+                                            </div>
+                                            <div className="icons">
+                                                <RiDeleteBin6Line onClick={() => handleDelete(e.todovalue)} className="del-icon" />
+                                            </div>
                                         </div>
-                                        <div className="icons">
-                                            <RiDeleteBin6Line onClick={() => handleDelete(e.todovalue)} className="del-icon" />
+                                        <div className="completed-time">
+                                            <h1 className="progress">Progress...</h1>
                                         </div>
                                     </div>
                                 })
@@ -338,14 +343,19 @@ const Todolist = () => {
                             {
                                 pendingArr.map((e, i) => {
                                     console.log(e);
-                                    return <div className="todo-value" key={i}>
-                                        <div className="todo-content">
-                                            <h1>{e.todovalue}</h1>
-                                            <p>{e.tododescription}</p>
-                                            <p id="demo"></p>
+                                    return <div className="todo-box" key={i}>
+                                        <div className="todo-values">
+                                            <div className="todo-content">
+                                                <h1>{e.todovalue}</h1>
+                                                <p>{e.tododescription}</p>
+                                                <p id="demo"></p>
+                                            </div>
+                                            <div className="icons">
+                                                <RiDeleteBin6Line onClick={() => handleDelete(e.todovalue)} className="del-icon" />
+                                            </div>
                                         </div>
-                                        <div className="icons">
-                                            <RiDeleteBin6Line onClick={() => handleDelete(e.todovalue)} className="del-icon" />
+                                        <div className="completed-time">
+                                            <h1 className="pending">Pending!</h1>
                                         </div>
                                     </div>
                                 })
