@@ -117,11 +117,12 @@ const Todolist = () => {
         setArray(a)
         var date = new Date();
         let time = date.toLocaleTimeString();
-        let day = date.getDate()
-        let month = date.getMonth() + 1
-        let year = date.getFullYear()
-        let dates = "0" + day + "/" + "0" + month + "/" + year;
-
+        const day = date.getDate()
+        let days=day<10?'0'+day:day
+        const month = date.getMonth() + 1
+        let months=month<10?'0'+month:month;
+        const year = date.getFullYear()
+        let dates = days + "/" + months + "/" + year;
         console.log(time);
 
         let obj = { todovalue, tododescription, colorChange: false, timing: time, date: dates }
@@ -159,18 +160,18 @@ const Todolist = () => {
 
     const startingtodos = () => {
         const date = new Date()
-        let day = date.getDate()
-        let month = date.getMonth() + 1
-        let year = date.getFullYear()
-        let dates = "0" + day + "/" + "0" + month + "/" + year;
-        let c = dates.split("/").reverse().join("-");
-        console.log(c);
-        console.log(day + "/" + month + "/" + year);
+        const day = date.getDate()
+        let days=day<10?'0'+day:day
+        const month = date.getMonth() + 1
+        let months=month<10?'0'+month:month;
+        const year = date.getFullYear()
+        let dates = days + "/" + months + "/" + year;
+        let currentDate = dates.split("/").reverse().join("-")
 
         console.log(startDate);
         let a = array.filter((e) => {
             console.log(e.startDate);
-            return e.startDate === c
+            return e.startDate === currentDate
         })
         setStartarr(a)
         console.log(startArr);
@@ -188,9 +189,11 @@ const Todolist = () => {
     const progressTodos = () => {
         const date = new Date()
         const day = date.getDate()
+        let days=day<10?'0'+day:day
         const month = date.getMonth() + 1
+        let months=month<10?'0'+month:month;
         const year = date.getFullYear()
-        let dates = "0" + day + "/" + "0" + month + "/" + year;
+        let dates = days + "/" + months + "/" + year;
         let currentDate = dates.split("/").reverse().join("-")
         console.log(startDate, endDate);
         let a = array.filter((e) => {
@@ -219,11 +222,12 @@ const Todolist = () => {
 
         const date = new Date()
         const day = date.getDate()
+        let days=day<10?'0'+day:day
         const month = date.getMonth() + 1
+        let months=month<10?'0'+month:month;
         const year = date.getFullYear()
-        let dates = "0" + day + "/" + "0" + month + "/" + year;
+        let dates = days + "/" + months + "/" + year;
         let currentDate = dates.split("/").reverse().join("-")
-
         console.log(startDate, endDate);
         let a = array.filter((e) => {
             return currentDate > e.endDate
@@ -319,7 +323,7 @@ const Todolist = () => {
                                 progressArr.map((e, i) => {
                                     console.log(e);
                                     return <div className="todo-box" key={i}>
-                                        <div className="todo-values" >
+                                        <div className="todo-values">
                                             <div className="todo-content">
                                                 <h1>{e.todovalue}</h1>
                                                 <p>{e.tododescription}</p>
