@@ -1,5 +1,5 @@
 * {
-    padding: o;
+    padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
@@ -8,6 +8,157 @@ body {
     background-color: #000;
     overflow: hidden;
 }
+
+/* media query for mobile */
+
+@media (min-width:320px) {
+    .todo-col {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 2%;
+
+    }
+
+    .todo-col button {
+        display: none;
+    }
+
+    .add-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .add-btn button {
+        color: black;
+        padding: 12px 41px;
+        background-color: #1e8f07;
+        border: none;
+        position: relative;
+        top: 12px;
+    }
+
+    .todos {
+        display: flex;
+        margin: 38px auto 10px;
+        max-width: 263px;
+        overflow-x: scroll;
+    }
+
+    .todo-col input {
+        width: 83%;
+        padding: 12px;
+        outline-color: #1e8f07;
+        margin: 10px 0;
+    }
+
+    .completed-time p {
+        color: grey;
+        padding: 0 4px;
+        font-size: 12px;
+    }
+
+}
+
+/* media query for tablet */
+
+@media (min-width:720px) {
+    .todo-col {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        gap: 2%;
+
+    }
+
+    .todo-col button {
+        display: block;
+        color: black;
+        padding: 12px 28px;
+        background-color: #1e8f07;
+        border: none;
+        position: relative;
+        left: 9px;
+    }
+
+    .add-btn {
+        display: none;
+    }
+
+    .todos {
+        display: flex;
+        margin: 16px 0 0 10px;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+
+    .todo-col input {
+        width: 50%;
+        padding: 12px;
+        outline-color: #1e8f07;
+    }
+
+    .completed-time p {
+        color: grey;
+        padding: 0 12px;
+        font-size: 12px;
+    }
+}
+
+/* media query for labtop */
+
+@media (min-width:1000px) {
+    .todo-col {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        gap: 2%;
+
+    }
+
+    .todo-col button {
+        display: block;
+        color: black;
+        padding: 12px 28px;
+        background-color: #1e8f07;
+        border: none;
+        position: relative;
+        left: 9px;
+    }
+
+    .add-btn {
+        display: none;
+    }
+
+    .todos {
+        display: flex;
+        margin: 16px 0 0 10px;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+
+    .todo-col input {
+        width: 50%;
+        padding: 12px;
+        outline-color: #1e8f07;
+    }
+
+    .completed-time p {
+        color: grey;
+        padding: 0 12px;
+        font-size: 12px;
+    }
+}
+
+
+
 
 .todo-row {
     background-color: #161414;
@@ -18,28 +169,7 @@ body {
     padding: 2%;
 }
 
-.todo-col {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2%;
 
-}
-
-.todo-col input {
-    width: 50%;
-    padding: 12px;
-    outline-color: #1e8f07;
-}
-
-.todo-col button {
-    color: black;
-    padding: 12px 28px;
-    background-color: #1e8f07;
-    border: none;
-    position: relative;
-    left: 9px;
-}
 
 .todo-col p {
     color: #1e8f07;
@@ -64,12 +194,15 @@ body {
     align-items: center;
     color: green;
 }
-.todo-value{
+
+.todo-value {
     background-color: #0f0d0d;
 }
-.todo-box{
+
+.todo-box {
     background-color: #0f0d0d;
 }
+
 .todo-content {
     width: 80%;
 }
@@ -116,57 +249,51 @@ body {
     color: white;
 }
 
-.todos {
-    display: flex;
-    margin: 16px 0 0 10px;
-}
-
 .todos button {
-    color:white;
+    color: white;
     padding: 12px 28px;
     border: none;
     cursor: pointer;
-    background-color:#3f3939;
+    background-color: #3f3939;
 }
 
-.todoslist{
-    background-color:#1e8f07;
+.todoslist {
+    background-color: #1e8f07;
 }
 
-#todos{
+#todos {
     background-color: gray;
 }
 
-.todo-title{
+.todo-title {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.todo-title h1{
+.todo-title h1 {
     font-size: 39px;
     color: white;
     margin: 20px 0 0 0;
 }
-.completed-time{
+
+.completed-time {
     padding: 0px 23px 19px;
     display: flex;
     align-items: center;
 }
-.completed-time p{
-    color: grey;
-    padding: 0 12px;
-    font-size: 12px;
-}
-.completed-head{
+
+.completed-head {
     color: #6f7479f7;
     font-size: 13px;
 }
-.pending{
+
+.pending {
     font-size: 13px;
     color: red;
 }
-.progress{
+
+.progress {
     font-size: 13px;
     color: #3f3939;
 }

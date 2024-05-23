@@ -63,10 +63,10 @@ const Todolist = () => {
             })
             setArray(a)
         }
+
         else {
             let obj = { todovalue, tododescription, startDate, endDate }
             console.log(obj);
-
             obj.todovalue === "" ? setArray(array) || setEmpty(true) : setArray([...array, obj]) || setEmpty(false)
         }
 
@@ -118,9 +118,9 @@ const Todolist = () => {
         var date = new Date();
         let time = date.toLocaleTimeString();
         const day = date.getDate()
-        let days=day<10?'0'+day:day
+        let days = day < 10 ? '0' + day : day
         const month = date.getMonth() + 1
-        let months=month<10?'0'+month:month;
+        let months = month < 10 ? '0' + month : month;
         const year = date.getFullYear()
         let dates = days + "/" + months + "/" + year;
         console.log(time);
@@ -161,9 +161,9 @@ const Todolist = () => {
     const startingtodos = () => {
         const date = new Date()
         const day = date.getDate()
-        let days=day<10?'0'+day:day
+        let days = day < 10 ? '0' + day : day
         const month = date.getMonth() + 1
-        let months=month<10?'0'+month:month;
+        let months = month < 10 ? '0' + month : month;
         const year = date.getFullYear()
         let dates = days + "/" + months + "/" + year;
         let currentDate = dates.split("/").reverse().join("-")
@@ -189,9 +189,9 @@ const Todolist = () => {
     const progressTodos = () => {
         const date = new Date()
         const day = date.getDate()
-        let days=day<10?'0'+day:day
+        let days = day < 10 ? '0' + day : day
         const month = date.getMonth() + 1
-        let months=month<10?'0'+month:month;
+        let months = month < 10 ? '0' + month : month;
         const year = date.getFullYear()
         let dates = days + "/" + months + "/" + year;
         let currentDate = dates.split("/").reverse().join("-")
@@ -222,9 +222,9 @@ const Todolist = () => {
 
         const date = new Date()
         const day = date.getDate()
-        let days=day<10?'0'+day:day
+        let days = day < 10 ? '0' + day : day
         const month = date.getMonth() + 1
-        let months=month<10?'0'+month:month;
+        let months = month < 10 ? '0' + month : month;
         const year = date.getFullYear()
         let dates = days + "/" + months + "/" + year;
         let currentDate = dates.split("/").reverse().join("-")
@@ -250,8 +250,11 @@ const Todolist = () => {
                     <div className='todo-col'>
                         <input type='text' placeholder='Enter your lists' id="inputvalue" value={todovalue} name="todo" onChange={handle}></input>
                         <input type='text' placeholder='Enter your description' id="inputvalue" value={tododescription} name="description" onChange={handle}></input>
-                        <input type='date' placeholder='Enter your lists' id="inputvalue" value={startDate} name="start" onChange={handle}></input>
-                        <input type='date' placeholder='Enter your lists' id="inputvalue" value={endDate} name="end" onChange={handle}></input>
+                        <input type='date' id="inputvalue" value={startDate} name="start" onChange={handle}></input>
+                        <input type='date' id="inputvalue" value={endDate} name="end" onChange={handle}></input>
+                        <button onClick={handleEvent}>Add</button>
+                    </div>
+                    <div className="add-btn">
                         <button onClick={handleEvent}>Add</button>
                     </div>
                     {
