@@ -25,7 +25,7 @@ const Todolist = () => {
     const [edit, setEdit] = useState(false)
     const [empty, setEmpty] = useState(false)
     const [emptyvalue, setEmptyvalue] = useState("")
-    const [allTodosactive, setAlltodosactive] = useState(false)
+    const [allTodosactive, setAlltodosactive] = useState(true)
     const [startTodosactive, setStarttodosactive] = useState(false)
     const [progressTodosactive, setProgresstodosactive] = useState(false)
     const [pendingTodosactive, setPendingtodosactive] = useState(false)
