@@ -75,7 +75,6 @@ const Todolist = () => {
         setStartdate("")
         setEnddate("")
         console.log(emptyvalue, "submit");
-        console.log(state.data.arr);
     }
 
     // handle delete function here
